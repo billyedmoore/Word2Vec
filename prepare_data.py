@@ -70,21 +70,30 @@ def _encode_training_data(unencoded_X: list[str],unencoded_Y: list[str],token_to
     if number_of_inputs != len(unencoded_Y): 
         raise ValueError("There must be the same number of inputs(X) as outputs(Y)")
 
-    X = np.zeros((number_of_tokens, number_of_inputs))
-    Y = np.zeros((number_of_tokens, number_of_inputs))
+    X = np.zeros((number_of_inputs,number_of_tokens))
+    Y = np.zeros((number_of_inputs,number_of_tokens))
     
     for i in range(number_of_inputs):
-        X[token_to_index_map[unencoded_X[i]],i] = 1
-        Y[token_to_index_map[unencoded_Y[i]],i] = 1
+        X[i,token_to_index_map[unencoded_X[i]]] = 1
+        Y[i,token_to_index_map[unencoded_Y[i]]] = 1
 
     return (X,Y)
 
+def encode_token(token: str,token_to_index: dict[str,int]) -> NDArray:
+    """
+    One-hot encode a single token.
+    """
+    X = np.zeros((1,max(token_to_index.values())+1))
+    X[0,token_to_index[token]]  = 1
+ 
+    return X
 
-def file_to_training_data(filename: str,window_size: int=3) -> tuple[NDArray,NDArray,list[str]]:
+
+def file_to_training_data(filename: str,window_size: int=3) -> tuple[NDArray,NDArray,list[str],dict[str,int]]:
     text = _load_text(filename)
     tokens = _tokenize_text(text)
     (token_to_index,index_to_token) = _create_token_index_maps(tokens)
     (unencoded_X,unencoded_Y) = _tokens_to_training_data(tokens,window_size)
     (X,Y) = _encode_training_data(unencoded_X,unencoded_Y,token_to_index)
-    return X,Y,index_to_token
+    return X,Y,index_to_token,token_to_index
 
