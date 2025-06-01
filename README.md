@@ -15,3 +15,8 @@ Useful resources to understand Word2Vec.
 
 The environment variable `KERAS_BACKEND=torch` must be set (unless torch is configured as the default Keras backend in your config).
 
+## To Be Completed
+
++ Loading function to enable larger corpuses.
++ Add the weighting to the negative sampling.
++ Add save function to save time.
