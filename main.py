@@ -18,7 +18,7 @@ def upsert_token(model: Model, token: str,token_to_index: dict[str,int]) -> NDAr
 
 
 if __name__ == "__main__":
-    X,Y,tokens,token_to_index = file_to_training_data("tomorrow_and_tomorrow_and_tomorrow.txt")
+    X,Y,tokens,token_to_index = file_to_training_data("data/AdventuresInWonderland.txt")
     model = create_model(len(tokens),30)
     train_model(model,X,Y)
     convert_to_embedding_model(model)
