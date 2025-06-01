@@ -11,3 +11,6 @@ Resources that I made use of to understand Word2Vec.
 + [Blog post explaining the Word2Vec model](http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/) 
   and [follow up explaining negative sampling](http://mccormickml.com/2017/01/11/word2vec-tutorial-part-2-negative-sampling/) by Chris McCormick
 
+## Enviroment
+
+The enviroment variable `KERAS_BACKEND=torch` must be set (unless torch is configured as the default Keras backend in your config).
